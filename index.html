@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Girl Who Owns My Heart — Gallery</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0f0f10;
+    --panel:#ffffff;
+    --gold:#c6a84b;
+    --muted:#bdbdbd;
+    --accent: rgba(198,168,75,0.06);
+    --frame-bg: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,248,246,0.98));
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(circle at 10% 10%, rgba(198,168,75,0.04), transparent 10%),
+                linear-gradient(180deg, #0b0b0c 0%, #0f0f10 100%);
+    color: #eee;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:1.2rem 2rem;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    position:sticky;
+    top:0;
+    backdrop-filter: blur(6px);
+    z-index:30;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+  }
+  .logo{
+    width:56px;
+    height:56px;
+    border-radius:8px;
+    background: linear-gradient(135deg, rgba(198,168,75,0.95), rgba(220,210,155,0.9));
+    display:grid;
+    place-items:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.6);
+    font-family:"Playfair Display";
+    font-weight:700;
+    color:#0b0b0b;
+    font-size:20px;
+  }
+  h1{
+    margin:0;
+    font-family:"Playfair Display";
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:var(--panel);
+    font-size:1.05rem;
+  }
+  .subtitle{
+    font-size:0.78rem;
+    color:var(--muted);
+    margin-top:0.08rem;
+  }
+
+  main{
+    padding:2rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+
+  /* Gallery Grid */
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap:1.35rem;
+    align-items:start;
+  }
+
+  .frame{
+    background:var(--frame-bg);
+    border-radius:12px;
+    padding:14px;
+    box-shadow:
+      0 6px 20px rgba(2,2,2,0.6),
+      inset 0 1px 0 rgba(255,255,255,0.35);
+    transform: translateZ(0);
+    transition: transform .25s ease, box-shadow .25s ease;
+    position:relative;
+    overflow:visible;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .frame:hover{
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 12px 34px rgba(2,2,2,0.7);
+  }
+
+  .frame .mat{
+    background: #f7f5f3;
+    padding:8px;
+    border-radius:8px;
+    border: 6px solid #ffffff;
+    display:block;
+    overflow:hidden;
+    position:relative;
+  }
+  .frame img{
+    display:block;
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:6px;
+    transition: transform .7s cubic-bezier(.2,.9,.3,1);
+    transform-origin:center;
+  }
+  .frame:hover img{ transform: scale(1.05); }
+
+  .caption{
+    margin-top:0.85rem;
+    font-size:0.93rem;
+    font-weight:500;
+    color:#151515;
+    font-family:"Playfair Display", serif;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.6rem;
+  }
+  .caption .text{
+    flex:1;
+    color:#222;
+  }
+  .caption .date{
+    color:var(--muted);
+    font-size:0.8rem;
+    white-space:nowrap;
+    margin-left:0.6rem;
+  }
+
+  /* spotlight accent */
+  .frame::after{
+    content:"";
+    position:absolute;
+    inset:auto auto -10px -10px;
+    width:90%;
+    height:40%;
+    pointer-events:none;
+    background: radial-gradient(closest-side, rgba(198,168,75,0.08), transparent 40%);
+    filter: blur(18px);
+    transform: rotate(-6deg);
+    z-index:0;
+  }
+
+  /* header controls */
+  .controls{
+    display:flex;
+    gap:.6rem;
+    align-items:center;
+  }
+  .btn{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    padding:.45rem .75rem;
+    border-radius:8px;
+    color:var(--panel);
+    font-weight:600;
+    cursor:pointer;
+    font-size:0.9rem;
+  }
+  .btn.primary{
+    background: linear-gradient(90deg, rgba(198,168,75,0.95), rgba(210,190,120,0.95));
+    color:#0b0b0b;
+    border: none;
+    box-shadow: 0 6px 18px rgba(198,168,75,0.08);
+  }
+
+  /* responsive tweaks */
+  @media (max-width:640px){
+    .frame img{ height:180px; }
+    header{ padding:0.9rem 1rem; }
+    main{ padding:1rem; }
+    .logo{ width:48px;height:48px;font-size:18px}
+  }
+
+  /* footer */
+  footer{
+    padding:2rem;
+    text-align:center;
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  /* subtle focus */
+  a, button { outline-color: var(--gold); }
+
+  /* visually hidden for accessibility (for audio controls) */
+  .visually-hidden{ position:absolute!important; height:1px;width:1px;overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">♥</div>
+    <div>
+      <h1>The Girl Who Owns My Heart</h1>
+      <div class="subtitle">A private exhibition — framed memories & romantic captions</div>
+    </div>
+  </div>
+
+  <div class="controls" aria-hidden="false">
+    <button class="btn" id="shuffleBtn" title="Shuffle frames">Shuffle</button>
+    <button class="btn" id="fullscreenBtn" title="Enter full-screen">Full screen</button>
+    <button class="btn primary" id="downloadBtn" title="Download HTML">Download</button>
+  </div>
+</header>
+
+<main>
+  <section class="gallery" id="gallery" aria-live="polite">
+    <!-- Frames inserted by JS -->
+  </section>
+</main>
+
+<footer>
+  Made with ❤️ — styled romantic + luxury + minimal
+</footer>
+
+<!-- Audio / Music -->
+<!--
+  Notes:
+  - You provided a YouTube link: https://youtu.be/Ri3WsPDi4MY?si=u4R4D-sSEzYeqIx-
+  - Autoplay via embedded YouTube may be blocked by some browsers unless the user interacts or the video is muted.
+  - If you have a direct MP3 file, replace the <iframe> approach with:
+      <audio id="bgAudio" src="PATH_TO_MP3" autoplay loop></audio>
+  - This file uses an embeddable YouTube player as requested; the player is set to autoplay=1 and loop.
+-->
+<div class="visually-hidden" aria-hidden="true">
+  <!-- YouTube embed; the 'playlist' param equals the video id to allow loop -->
+  <iframe id="ytplayer" width="1" height="1" src="https://www.youtube.com/embed/Ri3WsPDi4MY?autoplay=1&controls=0&rel=0&loop=1&playlist=Ri3WsPDi4MY&modestbranding=1" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+</div>
+
+<script>
+/*
+  HOW TO USE:
+  1) Replace IMAGE_URL_1 ... IMAGE_URL_50 in the `images` array below with direct image URLs.
+     - To get a direct image URL from Google Photos shared album:
+         • Open the photo in the album (in desktop browser) -> Right click -> "Open image in new tab" (or "Copy image address").
+         • The direct URL often ends with =sXXX or contains "googleusercontent.com" — paste that full URL here.
+     - If that doesn't work, export the album (zip) and upload files to a static host (GitHub, Dropbox with raw links, or your own server).
+  2) Save and open this file locally or deploy to GitHub Pages / Vercel.
+  3) If autoplay is blocked, instruct visitors to click anywhere on the page to start music (common browser behavior).
+*/
+
+/* ====== PLACEHOLDER IMAGE URLS ======
+   Replace these strings with your actual direct image URLs (50 of them).
+   Keep the number of entries in the array equal to the number of captions (50).
+*/
+const images = [
+  "IMAGE_URL_1","IMAGE_URL_2","IMAGE_URL_3","IMAGE_URL_4","IMAGE_URL_5",
+  "IMAGE_URL_6","IMAGE_URL_7","IMAGE_URL_8","IMAGE_URL_9","IMAGE_URL_10",
+  "IMAGE_URL_11","IMAGE_URL_12","IMAGE_URL_13","IMAGE_URL_14","IMAGE_URL_15",
+  "IMAGE_URL_16","IMAGE_URL_17","IMAGE_URL_18","IMAGE_URL_19","IMAGE_URL_20",
+  "IMAGE_URL_21","IMAGE_URL_22","IMAGE_URL_23","IMAGE_URL_24","IMAGE_URL_25",
+  "IMAGE_URL_26","IMAGE_URL_27","IMAGE_URL_28","IMAGE_URL_29","IMAGE_URL_30",
+  "IMAGE_URL_31","IMAGE_URL_32","IMAGE_URL_33","IMAGE_URL_34","IMAGE_URL_35",
+  "IMAGE_URL_36","IMAGE_URL_37","IMAGE_URL_38","IMAGE_URL_39","IMAGE_URL_40",
+  "IMAGE_URL_41","IMAGE_URL_42","IMAGE_URL_43","IMAGE_URL_44","IMAGE_URL_45",
+  "IMAGE_URL_46","IMAGE_URL_47","IMAGE_URL_48","IMAGE_URL_49","IMAGE_URL_50"
+];
+
+/* ====== 50 Romantic Captions (generated) ====== */
+const captions = [
+  "Her smile — sunrise in my chest",
+  "Quiet laughter, loud love",
+  "Caught looking at forever",
+  "That little tilt of perfection",
+  "When her eyes say home",
+  "A laugh stitched into my day",
+  "She carries daylight in her hands",
+  "Soft hands, louder heartbeats",
+  "Notes of her voice still linger",
+  "Midnight whispers made gold",
+  "The way she thinks — poetry",
+  "Coffee, sunlight, and her",
+  "Her silhouette under the streetlamp",
+  "Private joke, public glow",
+  "The world paused to watch her",
+  "A day made softer by her",
+  "She dances like no sorrow exists",
+  "Two hearts, same secret",
+  "Her warmth is my favourite place",
+  "A smile that rewrites the sky",
+  "Her eyes — my compass",
+  "I collect moments like these",
+  "She is my favourite unexpected",
+  "Every small thing becomes ceremony",
+  "Her quiet courage — beautiful and true",
+  "A touch that tethers me home",
+  "She holds light even in rainy rooms",
+  "The map of us in her laugh",
+  "A thousand tiny reasons to stay",
+  "When she looks, the world learns to shine",
+  "The softness of our ordinary days",
+  "She is my calm and my thunder",
+  "Hers is the face of every good thing",
+  "I press this moment into memory",
+  "She turns small gestures into love letters",
+  "That laugh — my private sunrise",
+  "Her presence is a gentle revolution",
+  "She wears confidence like jewelry",
+  "In her arms, every storm quiets",
+  "Her voice rearranges my day",
+  "A heartbeat I learned to follow",
+  "The echo of her smile lingers",
+  "Her hand fits like a promise",
+  "The story begins and ends with her",
+  "She is poetry without words",
+  "I keep her in the soft places of me",
+  "Close enough to count her freckles",
+  "She is the answer to my quiet questions"
+];
+
+/* Utility: format today's date for each caption (optional) */
+function dateFor(index){
+  // generate a natural-looking date near present, as decorative only
+  const base = new Date();
+  const d = new Date(base.getTime() - (index * 86400000)); // index days ago
+  return d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
+}
+
+/* Build gallery */
+const gallery = document.getElementById('gallery');
+
+function makeFrame(src, captionText, dateText){
+  const wrap = document.createElement('article');
+  wrap.className = 'frame';
+  wrap.innerHTML = `
+    <div class="mat" aria-hidden="false">
+      <img src="${src}" alt="${captionText}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22160%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%230f0f10%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23c6a84b%22 font-family=%22Segoe UI%22 font-size=%2214%22>Image not found</text></svg>';">
+    </div>
+    <div class="caption">
+      <div class="text">${captionText}</div>
+      <div class="date">${dateText}</div>
+    </div>
+  `;
+  return wrap;
+}
+
+function renderAll(){
+  gallery.innerHTML = '';
+  const n = Math.min(images.length, captions.length);
+  for(let i=0;i<n;i++){
+    const src = images[i] || '';
+    const cap = captions[i] || '';
+    const date = dateFor(i);
+    gallery.appendChild(makeFrame(src, cap, date));
+  }
+}
+
+/* Controls */
+document.getElementById('shuffleBtn').addEventListener('click', ()=>{
+  // simple Fisher-Yates shuffle on images & captions in parallel
+  for(let i = images.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [images[i], images[j]] = [images[j], images[i]];
+    [captions[i], captions[j]] = [captions[j], captions[i]];
+  }
+  renderAll();
+});
+
+document.getElementById('fullscreenBtn').addEventListener('click', ()=>{
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen().catch(()=>{});
+  }
+});
+
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  // download current HTML snapshot
+  const html = "<!doctype html>\\n" + document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'the-girl-who-owns-my-heart.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+/* attempt to start music on first user interaction if autoplay blocked */
+let started = false;
+function startMusicOnInteraction(){
+  if(started) return;
+  // try to focus iframe to nudge autoplay policies; user gesture required in many browsers
+  const ifr = document.getElementById('ytplayer');
+  try {
+    ifr && ifr.contentWindow && ifr.contentWindow.postMessage && !started;
+  } catch(e){}
+  started = true;
+  window.removeEventListener('pointerdown', startMusicOnInteraction);
+  window.removeEventListener('keydown', startMusicOnInteraction);
+}
+
+/* register user interaction listeners to ensure playback starts if blocked */
+window.addEventListener('pointerdown', startMusicOnInteraction, {once:true});
+window.addEventListener('keydown', startMusicOnInteraction, {once:true});
+
+/* render */
+renderAll();
+
+/* Accessibility: keyboard shortcut 'S' to shuffle */
+window.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase()==='s'){ document.getElementById('shuffleBtn').click(); }
+});
+</script>
+</body>
+</html>
